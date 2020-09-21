@@ -147,6 +147,8 @@ def ThetaMethodF_wBC2c(ft, ift, mri_para, w , v, sp, mydomain):
 
 # Strong periodic boundary conditions
 def inner_interface(ift, kappa, qvalue, u0rm, u1rm, v0r, v1r, u0im, u1im, v0i, v1i, fn, g, D0, D1):
+    D0=1.6642e-3;
+    D1=0.5547e-3;
     F_bcr  = (-kappa*avg(u0rm-u1rm)-0.5*qvalue*ift*(avg(u0im)*inner(D0*avg(g),fn)+avg(u1im)*inner(D1*avg(g),fn)))*avg(v0r-v1r)
     F_bcr += -qvalue*ift*( avg(u0im)*inner(D0*avg(g),fn)-avg(u1im)*inner(D1*avg(g),fn) )*0.5*avg(v0r+v1r)
     F_bci  = (-kappa*avg(u0im-u1im)+0.5*qvalue*ift*(avg(u0rm)*inner(D0*avg(g),fn)+avg(u1rm)*inner(D1*avg(g),fn)))*avg(v0i-v1i)
@@ -209,6 +211,8 @@ def ThetaMethodF_sBC2c(ft, ift, mri_para, w, v, sp, mydomain):
     u0r, u0i, u1r, u1i = w[0], w[1], w[2], w[3]
     D0 = ieval(D, 0, phase);
     D1 = ieval(D, 1, phase);
+    D0=1.6642e-3;
+    D1=0.5547e-3;
     a0 = (  -theta*FuncF_sBC(ift, qvalue, g, u0r  , u0i  , v0r, v0i, D0, T2))*(1-phase)*dx
     a1 = (  -theta*FuncF_sBC(ift, qvalue, g, u1r  , u1i  , v1r, v1i, D1, T2))*phase*dx
     a_inner_bc  = (  (theta*inner_interface(ift, kappa, qvalue, u0r  , u1r  , v0r, v1r, u0i  , u1i  , v0i, v1i, fn0, g, D0, D1)))*abs(jump(phase))*dS;
@@ -233,8 +237,8 @@ def ThetaMethodL_sBC2c(ft, ift, mri_para, w, v, u_0, sp, mydomain):
     u0r_0, u0i_0, u1r_0, u1i_0 = split(u_0)
     D0 = ieval(D, 0, phase);
     D1 = ieval(D, 1, phase);
-    print('D0: %6.2f \n'%D0);
-    print('D1: %6.2f \n'%D1);
+    D0=1.6642e-3;
+    D1=0.5547e-3;
     L0 = (u0r_0/k*v0r + u0i_0/k*v0i +theta*FuncF_sBC(ift, qvalue, g, u0r_0, u0i_0, v0r, v0i, D0, T2))*(1-phase)*dx
     L1 = (u1r_0/k*v1r + u1i_0/k*v1i +theta*FuncF_sBC(ift, qvalue, g, u1r_0, u1i_0, v1r, v1i, D1, T2))*phase*dx
     L_inner_bc  = -(theta*inner_interface(ift, kappa, qvalue, u0r_0, u1r_0, v0r, v1r, u0i_0, u1i_0, v0i, v1i, fn0, g, D0, D1))*abs(jump(phase))*dS;
