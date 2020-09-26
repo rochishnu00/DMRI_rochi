@@ -898,13 +898,13 @@ class MRI_simulation():
           comm = MPI.comm_world
           rank = comm.Get_rank()
           comm.Barrier();
-          print("line 902 ok \n",flush=True);
+          print('line 902 ok \n',flush=True);
 
           ft_f, ift_f, ft_p_f, ift_p_f = Function(mydomain.V), Function(mydomain.V), Function(mydomain.V), Function(mydomain.V);
           F = ThetaMethodF(ft_f, ift_f, mri_para, self, mydomain)
           L = ThetaMethodL(ft_p_f, ift_p_f, mri_para, self, mydomain)
 
-          print("line 909 ok \n",flush=True);
+          print('line 909 ok \n',flush=True);
 
           start_time = time.time()
           while self.t < mri_para.T + self.k: # Time-stepping loop
