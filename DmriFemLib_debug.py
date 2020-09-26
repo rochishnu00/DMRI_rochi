@@ -30,7 +30,7 @@ import sympy as sp
 
 import time, os, sys, shutil, mpi4py, numpy
 
-Python/pythonrun.c:57:static void flush_io(void);
+sys.stderr = open("error.log", 'w', buffering=1 )
 
 def GdotX(gdir, mymesh):
   gdim = mymesh.geometry().dim()
